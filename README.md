@@ -3,7 +3,10 @@
 ## Project setup
 ```
 npm install
+cp .env.example .env
 ```
+
+Configure Firebase credentials in `.env` file.
 
 ### Compiles and hot-reloads for development
 ```
