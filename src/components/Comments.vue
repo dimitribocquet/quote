@@ -10,12 +10,15 @@
         <Comment v-for="comment in comments" :key="comment.id" :comment="comment" />
     </div>
 
-    <NewComment v-on:new-comment="pushNewComment" />
+    <NewComment v-if="user" v-on:new-comment="pushNewComment" />
+    <div v-else>
+        You must be logged in to comment.
+    </div>
   </div>
 </template>
 
 <script>
-import {db} from '../config/db';
+import {db, auth} from '../config/db';
 
 import Comment from './Comment';
 import NewComment from './NewComment';
@@ -33,16 +36,21 @@ export default {
   },
   data() {
     return {
+      user: null,
       comments: []
     }
   },
   firestore: {
     comments: db.collection('comments'),
   },
+  created() {
+    auth.onAuthStateChanged(user => this.user = user)
+  },
   methods: {
       pushNewComment(message) {
           db.collection('comments')
             .add({
+                userId: this.user.uid,
                 message: message
             })
       }

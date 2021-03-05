@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import 'firebase/auth'
 import 'firebase/firestore'
 
 let config = {
@@ -11,10 +12,14 @@ let config = {
     measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENT_ID || null,
 };
 
+// Init Firebase
+firebase.initializeApp(config)
+
 // Get a Firestore instance
-export const db = firebase
-    .initializeApp(config)
-    .firestore()
+export const db = firebase.firestore()
+
+// Get auth instance
+export const auth = firebase.auth()
 
 // Export types that exists in Firestore
 // This is not always necessary, but it's used in other examples
