@@ -41,7 +41,7 @@ export default {
     }
   },
   firestore: {
-    comments: db.collection('comments'),
+    comments: db.collection('comments').orderBy('orderId'),
   },
   created() {
     auth.onAuthStateChanged(user => this.user = user)
@@ -51,6 +51,7 @@ export default {
           db.collection('comments')
             .add({
                 userId: this.user.uid,
+                orderId: this.comments.length + 1,
                 message: message
             })
       }
