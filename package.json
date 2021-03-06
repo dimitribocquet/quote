@@ -10,6 +10,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "firebase": "^8.2.10",
+    "tiptap": "^1.32.1",
+    "tiptap-extensions": "^1.35.1",
     "vue": "^2.6.11",
     "vuefire": "^2.2.5"
   },

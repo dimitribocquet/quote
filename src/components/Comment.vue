@@ -1,7 +1,5 @@
 <template>
-  <div>
-      {{ comment.message }}
-  </div>
+  <div v-html="comment.message"></div>
 </template>
 
 <script>

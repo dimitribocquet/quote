@@ -1,17 +1,21 @@
 <template>
   <form @submit.prevent="submitNewComment">
-      <textarea v-model="message" cols="60" rows="6" placeholder="Comment here..."></textarea>
-      <button type="submit">Submit</button>
+    <Editor v-model="message" />
+    <button type="submit">Submit</button>
   </form>
 </template>
 
 <script>
+import Editor from './forms/Editor'
 
 export default {
   name: 'NewComment',
+  components: {
+      Editor,
+  },
   data() {
       return {
-          message: ''
+          message: '<p>Type your comment here</p>'
       }
   },
   methods: {
