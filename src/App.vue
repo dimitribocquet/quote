@@ -1,56 +1,13 @@
 <template>
   <div id="app">
-    <div v-if="loading">
-      Loading...
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
     </div>
-    <div v-else>
-      <template v-if="!user">
-        <Login />
-        <div>- Or -</div>
-        <Register />
-      </template>
-      <div v-else>
-        Welcome {{user.email}} !
-        <Logout />
-      </div>
-
-      <img alt="Vue logo" src="./assets/logo.png">
-
-      <Comments />
-    </div>
+    
+    <router-view/>
   </div>
 </template>
-
-<script>
-import {auth} from './config/db';
-import Comments from './components/Comments.vue'
-import Login from './components/authentication/Login.vue'
-import Register from './components/authentication/Register.vue'
-import Logout from './components/authentication/Logout.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Login,
-    Register,
-    Logout,
-    Comments,
-  },
-  data() {
-    return {
-      loading: true,
-      user: null,
-    }
-  },
-  created() {
-    auth.onAuthStateChanged(user => {
-      this.user = user
-      this.loading = false
-      console.log('user here', user);
-    })
-  }
-}
-</script>
 
 <style>
 #app {
@@ -59,6 +16,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
