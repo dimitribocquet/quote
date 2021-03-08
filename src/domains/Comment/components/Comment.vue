@@ -1,11 +1,17 @@
 <template>
-  <div>
+  <div style="background-color: antiquewhite; margin: 20px; padding: 20px;">
     <div v-html="comment.message"></div>
     <div class="actions">
       <router-link v-if="!disableShowBtn" :to="{name: 'CommentShow', params: {id: comment.id }}">Show</router-link>
+      <button @click="toggleReply()">Reply</button>
     </div>
-    <h3>Reply:</h3>
-    <NewComment v-if="user" v-on:new-comment="pushNewComment" />
+
+    <h3>Responses</h3>
+    <Comments 
+      :data="relatedComments" 
+      :show-reply="showReply"
+      v-on:new-comment="pushNewComment"
+    />
     <hr>
   </div>
 </template>
@@ -13,41 +19,56 @@
 <script>
 import {db, auth} from 'src/config/db';
 
-import NewComment from './NewComment';
+const commentsDb = db.collection('comments')
 
 export default {
   name: 'Comment',
-  components: {
-    NewComment,
-  },
   props: {
     comment: {
         required: true,
     },
     disableShowBtn: Boolean,
   },
+  computed: {
+    commentChannelId() { return this.comment.channelId },
+    orderId() { return this.relatedComments.length + 1 },
+    geoReferenceId() { return this.comment ? this.comment.georeferenceId + 1 : 1 },
+    channelId() { return this.user.uid + '_' + this.geoReferenceId + '_' + this.orderId },
+  },
   data() {
     return {
       user: null,
-      comments: []
+      relatedComments: [],
+      showReply: false,
     }
   },
-  firestore: {
-    comments: db.collection('comments'),
+  watch: {
+    commentChannelId: {
+      immediate: true,
+      
+      handler(commentChannelId) {
+        if(commentChannelId) {
+          this.$bind('relatedComments', commentsDb.where('channelParentId', '==', commentChannelId).orderBy('orderId'))
+        }
+      }
+    }
   },
   created() {
     auth.onAuthStateChanged(user => this.user = user)
   },
   methods: {
+    toggleReply() {
+      this.showReply = !this.showReply
+    },
       pushNewComment(message) {
           db.collection('comments')
             .add({
                 userId: this.user.uid,
-                orderId: this.comments.length + 1,
-                georeferenceId: 123456,
+                orderId: this.orderId,
+                georeferenceId: this.geoReferenceId,
                 message: message,
                 createdAt: new Date(),
-                channelId: this.user.uid + '_' + (this.comments.length + 1) + '_' + 123456,
+                channelId: this.channelId,
                 channelParentId: this.comment.channelId,
             })
       }
