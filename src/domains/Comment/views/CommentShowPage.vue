@@ -7,10 +7,8 @@
 </template>
 
 <script>
-import {db} from 'src/config/db';
+import CommentService from 'src/domains/Comment/services/CommentService';
 import Comment from 'src/domains/Comment/components/Comment';
-
-const comments = db.collection('comments')
 
 export default {
   name: 'CommentShow',
@@ -31,7 +29,7 @@ export default {
     id: {
       immediate: true,
       handler(id) {
-        this.$bind('comment', comments.doc(id))
+        this.$bind('comment', CommentService.get(id))
       }
     }
   },

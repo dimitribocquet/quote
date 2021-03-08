@@ -9,15 +9,13 @@
 
 <script>
 
-import {db, auth} from 'src/config/db';
+import {auth} from 'src/config/db';
+import CommentService from 'src/domains/Comment/services/CommentService';
 
 export default {
   name: 'CommentsPage',
   computed: {
-      hasComments() { return !!this.comments.length },
-      orderId() { return this.comments.length + 1 },
-      geoReferenceId() { return 1 },
-      channelId() { return this.user.uid + '_' + this.geoReferenceId + '_' + this.orderId },
+      hasComments() { return !!this.comments.length }
   },
   data() {
     return {
@@ -26,23 +24,14 @@ export default {
     }
   },
   firestore: {
-    comments: db.collection('comments').where('channelParentId', '==', null).orderBy('orderId'),
+    comments: CommentService.all(),
   },
   created() {
     auth.onAuthStateChanged(user => this.user = user)
   },
   methods: {
       pushNewComment(message) {
-          db.collection('comments')
-            .add({
-                userId: this.user.uid,
-                orderId: this.orderId,
-                georeferenceId: this.geoReferenceId,
-                message: message,
-                createdAt: new Date(),
-                channelId: this.channelId,
-                channelParentId: null,
-            })
+        CommentService.create(this.user.uid, message)
       }
   }
 }

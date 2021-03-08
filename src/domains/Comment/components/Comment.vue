@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import {db, auth} from 'src/config/db';
+import {auth} from 'src/config/db';
 
-const commentsDb = db.collection('comments')
+import CommentService from 'src/domains/Comment/services/CommentService';
 
 export default {
   name: 'Comment',
@@ -48,7 +48,7 @@ export default {
       
       handler(commentChannelId) {
         if(commentChannelId) {
-          this.$bind('relatedComments', commentsDb.where('channelParentId', '==', commentChannelId).orderBy('orderId'))
+          this.$bind('relatedComments', CommentService.all(commentChannelId))
         }
       }
     }
@@ -61,16 +61,7 @@ export default {
       this.showReply = !this.showReply
     },
       pushNewComment(message) {
-          db.collection('comments')
-            .add({
-                userId: this.user.uid,
-                orderId: this.orderId,
-                georeferenceId: this.geoReferenceId,
-                message: message,
-                createdAt: new Date(),
-                channelId: this.channelId,
-                channelParentId: this.comment.channelId,
-            })
+        CommentService.create(this.user.uid, message, this.orderId, this.geoReferenceId, this.commentChannelId);
       }
   }
 }
