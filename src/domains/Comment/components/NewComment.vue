@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Editor from './forms/Editor'
+import Editor from 'src/web/components/forms/Editor'
 
 export default {
   name: 'NewComment',

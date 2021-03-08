@@ -12,7 +12,7 @@
 
 <script>
 
-import {auth} from '../../config/db';
+import {auth} from 'src/config/db';
 
 export default {
   name: 'Login',

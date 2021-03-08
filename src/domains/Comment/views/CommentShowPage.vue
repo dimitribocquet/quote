@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import {db} from '../../config/db';
-import Comment from '../../components/Comment';
+import {db} from 'src/config/db';
+import Comment from 'src/domains/Comment/components/Comment';
 
 const comments = db.collection('comments')
 

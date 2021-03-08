@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {db, auth} from '../config/db';
+import {db, auth} from 'src/config/db';
 
 import Comment from './Comment';
 import NewComment from './NewComment';
@@ -41,7 +41,7 @@ export default {
     }
   },
   firestore: {
-    comments: db.collection('comments').orderBy('orderId'),
+    comments: db.collection('comments').where('channelParentId', '==', null).orderBy('orderId'),
   },
   created() {
     auth.onAuthStateChanged(user => this.user = user)
@@ -52,7 +52,11 @@ export default {
             .add({
                 userId: this.user.uid,
                 orderId: this.comments.length + 1,
-                message: message
+                georeferenceId: 123456,
+                message: message,
+                createdAt: new Date(),
+                channelId: this.user.uid + '_' + (this.comments.length + 1) + '_' + 123456,
+                channelParentId: null,
             })
       }
   }
