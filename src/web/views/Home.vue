@@ -1,13 +1,10 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="/assets/logo.png">
-    
-
-    <div v-if="loading">
+  <div class="home">    
+    <div v-if="loading" class="text-gray-500 text-3xl font-extralight w-full h-64 flex items-center justify-center">
       Loading...
     </div>
     <div v-else>
-      <Auth />
+      <!-- <Auth /> -->
 
       <CommentsPage />
   </div>
@@ -17,14 +14,12 @@
 <script>
 import {auth} from 'src/config/db'
 
-import Auth from 'src/domains/Authentication/components/Auth.vue'
 
 import CommentsPage from 'src/domains/Comment/views/CommentsPage.vue'
 
 export default {
   name: 'App',
   components: {
-    Auth,
     CommentsPage,
   },
   data() {

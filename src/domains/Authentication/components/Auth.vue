@@ -1,35 +1,36 @@
 <template>
     <div>
       <template v-if="!user">
-        <Login />
-        <div>- Or -</div>
-        <Register />
+        <button @click.prevent="openLoginModal()" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Login
+        </button>
       </template>
-      <div v-else>
-        Welcome, {{user.email}}.
+      <div v-else class="text-sm text-gray-400 align-middle">
+        {{user.email}}
         <Logout />
       </div>
+
+      <AuthModal v-model="loginModalOpened" />
   </div>
 </template>
 
 <script>
 import {auth} from 'src/config/db'
 
-import Login from 'src/domains/Authentication/components/Login.vue'
-import Register from 'src/domains/Authentication/components/Register.vue'
-import Logout from 'src/domains/Authentication/components/Logout.vue'
+import AuthModal from './AuthModal.vue'
+import Logout from './Logout.vue'
 
 export default {
   name: 'App',
   components: {
-    Login,
-    Register,
+    AuthModal,
     Logout,
   },
   data() {
     return {
       loading: true,
       user: null,
+      loginModalOpened: false,
     }
   },
   created() {
@@ -37,6 +38,14 @@ export default {
       this.user = user
       this.loading = false
     })
+  },
+  methods: {
+    openLoginModal() {
+      this.loginModalOpened = true
+    },
+    closeLoginModal() {
+      this.loginModalOpened = false
+    }
   }
 }
 </script>

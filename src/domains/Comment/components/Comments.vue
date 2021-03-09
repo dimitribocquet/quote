@@ -1,22 +1,11 @@
 <template>
-  <div class="comments" style="background-color: gray">
-
-    <div v-if="showReply">
-      <h2>New comment</h2>
-      <NewComment v-if="user" v-on:new-comment="$emit('new-comment', $event)" />
-      <div v-else>
-          You must be logged in to comment.
-      </div>
-    </div>
-
-    <h1>Comments</h1>
-
+  <div class="comments">
     <div v-if="!hasComments"
-        class="no-results">
-        No comments
+        class="no-results text-center text-gray-500 pb-8">
+        There is no comment yet. Be the first to comment!
     </div>
     <div v-else>
-      <div v-for="comment in data" :key="comment.id">
+      <div v-for="comment in data" :key="comment.id" :class="spaceClass">
         <Comment :comment="comment" />
       </div>
     </div>
@@ -24,15 +13,8 @@
 </template>
 
 <script>
-import {auth} from 'src/config/db';
-
-import NewComment from './NewComment';
-
 export default {
   name: 'Comments',
-  components: {
-      NewComment,
-  },
   props: {
     data: {
       type: Array,
@@ -40,19 +22,16 @@ export default {
     },
     showReply: {
       type: Boolean,
-      default: true,
+      default: false,
+    },
+    space: {
+      type: Number,
+      default: 4,
     }
   },
   computed: {
       hasComments() { return !!this.data.length },
-  },
-  data() {
-    return {
-      user: null,
-    }
-  },
-  created() {
-    auth.onAuthStateChanged(user => this.user = user)
+      spaceClass() { return 'mb-'+this.space },
   },
 }
 </script>

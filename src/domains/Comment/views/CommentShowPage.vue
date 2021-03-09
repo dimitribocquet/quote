@@ -1,8 +1,8 @@
 <template>
-  <div class="comment show">
-    <h1>Details of comment</h1>
-
-    <Comment v-if="comment" :comment="comment" disable-show-btn />
+  <div class="comment show mt-8">
+    <router-link :to="{name: 'CommentsPage'}" class="mx-2 text-indigo-600 hover:text-indigo-700 focus:outline-none"><font-awesome-icon icon="chevron-left" class="mr-1" /> Back</router-link>
+    <Loading v-if="!comment" />
+    <Comment v-else :comment="comment" disable-show-btn class="mt-4" />
   </div>
 </template>
 
@@ -22,6 +22,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       comment: null
     }
   },

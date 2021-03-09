@@ -8,22 +8,31 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/vue-fontawesome": "^2.0.2",
     "core-js": "^3.6.5",
+    "dayjs": "^1.10.4",
     "firebase": "^8.2.10",
     "tiptap": "^1.32.1",
     "tiptap-extensions": "^1.35.1",
+    "v-click-outside": "^3.1.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuefire": "^2.2.5"
   },
   "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.3",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "^4.5.11",
     "@vue/cli-service": "~4.5.0",
+    "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "postcss": "^7.0.35",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

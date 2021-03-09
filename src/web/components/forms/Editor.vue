@@ -1,136 +1,137 @@
 <template>
   <div class="editor">
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-      <div class="menubar">
+      <div class="menubar text-center mb-4">
         <button
-          class="menubar__button"
+          class="menubar__button px-2 py-1"
           :class="{ 'is-active': isActive.bold() }"
           @click.prevent="commands.bold"
         >
-          Bold
+            <font-awesome-icon icon="bold" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.italic() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.italic() }"
           @click.prevent="commands.italic"
         >
-          Italic
+            <font-awesome-icon icon="italic" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.strike() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.strike() }"
           @click.prevent="commands.strike"
         >
-          Strike
+            <font-awesome-icon icon="strikethrough" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.underline() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.underline() }"
           @click.prevent="commands.underline"
         >
-          Underline
+            <font-awesome-icon icon="underline" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.code() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.code() }"
           @click.prevent="commands.code"
         >
-          Code
+            <font-awesome-icon icon="code" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.paragraph() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.paragraph() }"
           @click.prevent="commands.paragraph"
         >
-          Paragraph
+            <font-awesome-icon icon="paragraph" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.heading({ level: 1 }) }"
           @click.prevent="commands.heading({ level: 1 })"
         >
           H1
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.heading({ level: 2 }) }"
           @click.prevent="commands.heading({ level: 2 })"
         >
           H2
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.heading({ level: 3 }) }"
           @click.prevent="commands.heading({ level: 3 })"
         >
           H3
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.bullet_list() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.bullet_list() }"
           @click.prevent="commands.bullet_list"
         >
-          Ul
+            <font-awesome-icon icon="list-ul" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.ordered_list() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.ordered_list() }"
           @click.prevent="commands.ordered_list"
         >
-          Ol
+            <font-awesome-icon icon="list-ol" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.blockquote() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.blockquote() }"
           @click.prevent="commands.blockquote"
         >
-          Quote
+            <font-awesome-icon icon="quote-left" />
         </button>
 
         <button
-          class="menubar__button"
-          :class="{ 'is-active': isActive.code_block() }"
+          class="menubar__button px-2 py-1"
+          :class="{ 'text-blue-500': isActive.code_block() }"
           @click.prevent="commands.code_block"
         >
-          Code
+            <font-awesome-icon icon="code" />
         </button>
 
         <button
-          class="menubar__button"
+          class="menubar__button px-2 py-1"
           @click.prevent="commands.horizontal_rule"
         >
           Hr
         </button>
 
         <button
-          class="menubar__button"
+          class="menubar__button px-2 py-1"
           @click.prevent="commands.undo"
         >
-          Undo
+            <font-awesome-icon icon="undo-alt" />
         </button>
 
         <button
-          class="menubar__button"
+          class="menubar__button px-2 py-1"
           @click.prevent="commands.redo"
         >
-          Redo
+            <font-awesome-icon icon="redo-alt" />
         </button>
 
       </div>
     </editor-menu-bar>
 
     <editor-content class="editor__content" :editor="editor" />
+    <input type="text" v-model="editor.extensions.options.placeholder.emptyNodeText" class="invisible">
   </div>
 </template>
 
@@ -154,6 +155,7 @@ import {
   Strike,
   Underline,
   History,
+  Placeholder,
 } from 'tiptap-extensions'
 
 export default {
@@ -165,6 +167,10 @@ export default {
       value: {
           type: String,
       },
+      placeholder: {
+        type: String,
+        default: 'Write something...',
+      }
   },
   data() {
     return {
@@ -187,6 +193,13 @@ export default {
           new Strike(),
           new Underline(),
           new History(),
+          new Placeholder({
+            emptyEditorClass: 'is-editor-empty',
+            emptyNodeClass: 'is-empty',
+            emptyNodeText: this.placeholder,
+            showOnlyWhenEditable: true,
+            showOnlyCurrent: true,
+          })
         ],
         content: this.value,
         onUpdate: ({ getHTML }) => {
@@ -200,3 +213,14 @@ export default {
   },
 }
 </script>
+
+<style>
+  .editor p.is-editor-empty:first-child::before {
+    @apply text-gray-300 italic float-left pointer-events-none h-0;
+    content: attr(data-empty-text);
+  }
+
+  .editor__content, .ProseMirror-focused {
+    @apply focus:ring-0 focus:outline-none;
+  }
+</style>

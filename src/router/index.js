@@ -1,19 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from 'src/web/views/Home.vue'
+import CommentsPage from 'src/domains/Comment/views/CommentsPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ 'src/web/views/About.vue')
+    name: 'CommentsPage',
+    component: CommentsPage
   },
   {
     path: '/comment/:id',
