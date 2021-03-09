@@ -1,4 +1,4 @@
-# Quote
+![Screenshot of Quote](https://github.com/dimitribocquet/quote/blob/master/public/images/screenshot.png?raw=true)
 
 ## Project setup
 ```
