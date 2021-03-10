@@ -14,6 +14,12 @@ const routes = [
     path: '/comment/:id',
     name: 'CommentShow',
     component: () => import(/* webpackChunkName: "comment-show" */ 'src/domains/Comment/views/CommentShowPage.vue')
+  },
+  {
+    path: '/admin',
+    name: 'AdminDashboard',
+    meta: { layout: 'admin' },
+    component: () => import(/* webpackChunkName: "admin-dashboard" */ 'src/web/views/Admin/AdminDashboardPage.vue')
   }
 ]
 

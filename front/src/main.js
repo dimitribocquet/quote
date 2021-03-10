@@ -38,7 +38,7 @@ Vue.use(auth, {
     router: driverRouterVueRouter,
   },
   options: {
-    rolesKey: 'type',
+    rolesKey: 'role',
     notFoundRedirect: { name: 'user-account' },
     parseUserData: function (data) {
       return data;
@@ -49,10 +49,15 @@ Vue.use(auth, {
   }
 });
 
+import DefaultLayout from 'src/web/layouts/Default'
+import AdminLayout from 'src/web/layouts/Admin'
+Vue.component('default-layout', DefaultLayout);
+Vue.component('admin-layout', AdminLayout);
+
 import Loading from 'src/web/components/Loading'
-Vue.component('Loading', Loading)
 import Comments from 'src/domains/Comment/components/Comments.vue'
 import Comment from 'src/domains/Comment/components/Comment.vue'
+Vue.component('Loading', Loading)
 Vue.component('Comments', Comments)
 Vue.component('Comment', Comment)
 
