@@ -25,7 +25,7 @@ export default {
       default: false,
     },
     space: {
-      type: Number,
+      type: [Number, String],
       default: 4,
     }
   },

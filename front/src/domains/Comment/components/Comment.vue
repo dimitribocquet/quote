@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import {auth} from 'src/config/db';
-
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -55,11 +53,12 @@ export default {
     disableShowBtn: Boolean,
   },
   computed: {
+    user() { return this.$auth.user() },
     commentChannelId() { return this.comment.channelId },
     totalRelatedCommentsTitle() { return this.relatedComments.length + (this.relatedComments.length > 1 ? ' comments' : ' comment') },
     orderId() { return this.relatedComments.length + 1 },
     geoReferenceId() { return this.comment ? this.comment.georeferenceId + 1 : 1 },
-    channelId() { return this.user.uid + '_' + this.geoReferenceId + '_' + this.orderId },
+    channelId() { return this.user._id + '_' + this.geoReferenceId + '_' + this.orderId },
   },
   filters: {
     diffForHumans: (date) => {
@@ -72,7 +71,6 @@ export default {
     },
   data() {
     return {
-      user: null,
       relatedComments: [],
       showReply: false,
     }
@@ -89,7 +87,6 @@ export default {
     }
   },
   created() {
-    auth.onAuthStateChanged(user => this.user = user)
     dayjs.extend(relativeTime);
   },
   methods: {
@@ -97,7 +94,7 @@ export default {
       this.showReply = !this.showReply
     },
       pushNewComment(message) {
-        CommentService.create(this.user.uid, message, this.orderId, this.geoReferenceId, this.commentChannelId);
+        CommentService.create(this.user._id, message, this.orderId, this.geoReferenceId, this.commentChannelId);
       }
   }
 }

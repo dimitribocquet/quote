@@ -31,8 +31,6 @@
 
 <script>
 
-import {auth} from 'src/config/db';
-
 export default {
   name: 'Login',
   data() {
@@ -43,7 +41,12 @@ export default {
   },
   methods: {
       login() {
-          auth.signInWithEmailAndPassword(this.email, this.password)
+            this.$auth.login({
+                data: {
+                    email: this.email,
+                    password: this.password,
+                }
+            })
             .then(response => {
                 console.log('signed in!', response);
                 this.$emit('success', true);

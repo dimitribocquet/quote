@@ -4,7 +4,13 @@
     <Header />
 
     <div class="view flex-grow w-screen max-w-4xl mx-auto px-4 xl:px-0">
-      <router-view/>
+
+      <div v-if="!$auth.ready()" class="text-gray-500 text-3xl font-extralight w-full h-64 flex items-center justify-center">
+        Loading...
+      </div>
+      <template v-else>
+        <router-view/>
+      </template>
     </div>
 
     <Footer />

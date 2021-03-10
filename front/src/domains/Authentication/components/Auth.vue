@@ -6,7 +6,7 @@
         </button>
       </template>
       <div v-else class="text-sm text-gray-400 align-middle">
-        {{user.email}}
+        {{ user.name || user.email }}
         <Logout />
       </div>
 
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import {auth} from 'src/config/db'
 
 import AuthModal from './AuthModal.vue'
 import Logout from './Logout.vue'
@@ -26,18 +25,13 @@ export default {
     AuthModal,
     Logout,
   },
+  computed: {
+    user() { console.log('user', this.$auth.user()); return this.$auth.user() }
+  },
   data() {
     return {
-      loading: true,
-      user: null,
       loginModalOpened: false,
     }
-  },
-  created() {
-    auth.onAuthStateChanged(user => {
-      this.user = user
-      this.loading = false
-    })
   },
   methods: {
     openLoginModal() {

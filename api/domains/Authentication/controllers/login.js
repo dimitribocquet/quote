@@ -25,9 +25,8 @@ module.exports = async (req, res, next) => {
         const token = createJWTAction(user)
 
         // Success
-        return res.status(200).json({
-            user,
-            token
+        return res.status(200).set('Authorization', 'Bearer ' + token).json({
+            access_token: token
         })
     } catch (error) {
         console.log(error);

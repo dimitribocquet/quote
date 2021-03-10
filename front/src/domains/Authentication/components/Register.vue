@@ -4,6 +4,15 @@
         <form @submit.prevent="register" class="space-y-6" >
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">
+                    Name
+                </label>
+                <div class="mt-1">
+                    <input type="text" v-model="name" placeholder="Name" autocomplete="name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm">
+                </div>
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">
                     Email address
                 </label>
                 <div class="mt-1">
@@ -31,19 +40,24 @@
 
 <script>
 
-import {auth} from 'src/config/db';
-
 export default {
   name: 'Register',
   data() {
       return {
+          name: '',
           email: '',
           password: '',
       }
   },
   methods: {
       register() {
-          auth.createUserWithEmailAndPassword(this.email, this.password)
+            this.$auth.register({
+                data: {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                }
+            })
             .then(response => {
                 console.log('registered!', response);
                 this.$emit('success', true);

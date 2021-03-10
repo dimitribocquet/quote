@@ -6,13 +6,11 @@
 
 <script>
 
-import {auth} from 'src/config/db';
-
 export default {
   name: 'Logout',
   methods: {
       logout() {
-          auth.signOut()
+          this.$auth.logout()
             .then(response => {
                 console.log('logout ok!', response);
             })

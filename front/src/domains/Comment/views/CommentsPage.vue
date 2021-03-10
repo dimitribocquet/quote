@@ -24,7 +24,6 @@
 
 <script>
 
-import {auth} from 'src/config/db';
 import CommentService from 'src/domains/Comment/services/CommentService';
 import NewComment from 'src/domains/Comment/components/NewComment';
 
@@ -34,27 +33,21 @@ export default {
     NewComment
   },
   computed: {
-      hasComments() { return !!this.comments.length }
+    user() { return this.$auth.user() },
+    hasComments() { return !!this.comments.length }
   },
   data() {
     return {
       loading: true,
-      user: null,
       comments: []
     }
   },
   firestore: {
     comments: CommentService.all(),
   },
-  created() {
-    auth.onAuthStateChanged(user => {
-      this.user = user
-      this.loading = false
-    })
-  },
   methods: {
       pushNewComment(message) {
-        CommentService.create(this.user.uid, message)
+        CommentService.create(this.user._id, message)
       }
   }
 }
