@@ -1,35 +1,27 @@
-![Screenshot of Quote](https://github.com/dimitribocquet/quote/blob/master/public/images/screenshot.png?raw=true)
+![Screenshot of Quote](https://github.com/dimitribocquet/quote/blob/master/front/public/images/screenshot.png?raw=true)
+
 
 ## Project setup
+
+### Api
+
+### Front
 ```
-npm install
 cp .env.example .env
+cd ./api
+npm install
+cd ../front
+npm install 
+npm run serve
 ```
 
 Configure Firebase credentials in `.env` file.
 
 ### Build & run with Docker
 ```
-docker build -t quote .
-docker run --name quote -d -p 8888:80 quote
+docker-compose up -d --build
 ```
 
-You can access to the project from http://localhost:8888.
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+You can access to the Front from http://localhost:8080.
+Api is available from http://localhost:8082.
+MongoDB Client is available from http://localhost:8081.
