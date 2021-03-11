@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 .logo {
+    display: inline-block;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 100;
@@ -17,6 +18,12 @@
     background: -webkit-linear-gradient(right, #3c329d, #d94f8e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.admin-layout .header .logo {
+    font-size: 24px;
+    letter-spacing: 6px;
+
 }
 
 .text-gradient {

@@ -9,16 +9,13 @@
     </div>
     <hr class="my-8" />
 
-    <Loading v-if="loading" />
-    <template v-else>
-      <h3 class="mb-8 font-light text-gray-400 text-2xl">Actives <span class="text-gradient">quotes</span></h3>
-      <Comments 
-        class="pb-8"
-        :data="comments"
-        space="12"
-        v-on:new-comment="pushNewComment"
-      />
-    </template>
+    <h3 class="mb-8 font-light text-gray-400 text-2xl">Actives <span class="text-gradient">quotes</span></h3>
+    <Comments 
+      class="pb-8"
+      :data="comments"
+      space="12"
+      v-on:new-comment="pushNewComment"
+    />
   </div>
 </template>
 
@@ -38,7 +35,6 @@ export default {
   },
   data() {
     return {
-      loading: true,
       comments: []
     }
   },

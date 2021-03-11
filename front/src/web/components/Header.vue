@@ -1,8 +1,10 @@
 <template>
-    <div class="pt-16 relative">
+    <div class="pt-16 relative flex justify-center">
 
       <Auth class="absolute right-0 top-0 mr-8 mt-4" />
-      <div class="logo w-full">quote</div>
+      <router-link  :to="{name: 'CommentsPage'}" class="logo">
+        quote
+      </router-link>
 
     </div>
 </template>
