@@ -4,6 +4,8 @@ const router = express.Router();
 const authenticationRouter = require('../domains/Authentication/routes/authentication');
 const usersRouter = require('../domains/User/routes/users');
 
+const adminRouter = require('../admin/routes');
+
 const isAuthenticatedMiddleware = require('../domains/Authentication/middlewares/isAuthenticated');
 const isAdminMiddleware = require('../domains/Authentication/middlewares/isAdmin');
 
@@ -20,5 +22,7 @@ router.get('/', function(req, res, next) {
 
 router.use('/auth', authenticationRouter);
 router.use('/users', [isAuthenticatedMiddleware, isAdminMiddleware], usersRouter);
+
+router.use('/admin', [isAuthenticatedMiddleware, isAdminMiddleware], adminRouter);
 
 module.exports = router;
