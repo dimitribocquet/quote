@@ -10,7 +10,7 @@
       <Auth layout="admin" />
     </div>
 
-    <div class="view flex-grow w-screen max-w-4xl mx-auto px-4 xl:px-0 mt-8">
+    <div class="view flex-grow w-screen mx-auto px-4 xl:px-8 mt-8">
         <slot />
     </div>
 

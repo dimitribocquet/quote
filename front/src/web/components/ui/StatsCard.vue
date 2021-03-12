@@ -19,14 +19,14 @@
       </div>
       <div v-if="link" class="bg-gray-50 px-4 py-4 sm:px-6">
         <div class="text-sm">
-          <a :href="link" class="font-medium text-pink-600 hover:text-pink-500">
+          <router-link :to="link" class="font-medium text-pink-600 hover:text-pink-500">
               <template v-if="linkLabel">
                   {{ linkLabel }}
               </template>
               <template v-else>
                   View<span class="sr-only"> {{ title }} stats</span>
               </template>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

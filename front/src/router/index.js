@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CommentsPage from 'src/domains/Comment/views/CommentsPage.vue'
 
+import adminRoutes from './admin'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,11 +17,10 @@ const routes = [
     name: 'CommentShow',
     component: () => import(/* webpackChunkName: "comment-show" */ 'src/domains/Comment/views/CommentShowPage.vue')
   },
+  ...adminRoutes,
   {
-    path: '/admin',
-    name: 'AdminDashboard',
-    meta: { layout: 'admin' },
-    component: () => import(/* webpackChunkName: "admin-dashboard" */ 'src/web/views/Admin/AdminDashboardPage.vue')
+    path: '*',
+    redirect: { name: 'CommentsPage' }
   }
 ]
 

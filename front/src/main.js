@@ -55,9 +55,13 @@ Vue.component('default-layout', DefaultLayout);
 Vue.component('admin-layout', AdminLayout);
 
 import Loading from 'src/web/components/Loading'
+import CTable from 'src/web/components/ui/CTable'
+import FormInput from 'src/web/components/forms/fields/Input'
 import Comments from 'src/domains/Comment/components/Comments.vue'
 import Comment from 'src/domains/Comment/components/Comment.vue'
 Vue.component('Loading', Loading)
+Vue.component('CTable', CTable)
+Vue.component('FormInput', FormInput)
 Vue.component('Comments', Comments)
 Vue.component('Comment', Comment)
 

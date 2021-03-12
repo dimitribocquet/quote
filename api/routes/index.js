@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const authenticationRouter = require('../domains/Authentication/routes/authentication');
-const usersRouter = require('../domains/User/routes/users');
 
 const adminRouter = require('../admin/routes');
 
@@ -21,7 +20,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/auth', authenticationRouter);
-router.use('/users', [isAuthenticatedMiddleware, isAdminMiddleware], usersRouter);
 
 router.use('/admin', [isAuthenticatedMiddleware, isAdminMiddleware], adminRouter);
 
